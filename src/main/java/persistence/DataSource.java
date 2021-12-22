@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class DataSource {
 	
 	// private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://127.0.0.1:3306/test2?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&useTimezone=true&serverTimezone=UTC";
+	private static final String URL = "jdbc:mysql://127.0.0.1:3306/academy_project?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&useTimezone=true&serverTimezone=UTC";
 	private static final String USER = "root";
 	private static final String PASSWORD = "Galdino123";
 	

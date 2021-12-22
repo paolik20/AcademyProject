@@ -162,4 +162,17 @@ public class AcademyDAOImpl implements AcademyDAO {
 		return academies;
 	}
 
+	@Override
+	public List<Academy> findByNomeEDate(Connection connection, String nome, Date dataInizio,
+			Date dataFine) throws DAOException {
+		
+		
+		
+		
+		
+		
+		
+		return null;
+	}
+
 }

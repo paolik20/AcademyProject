@@ -1,6 +1,7 @@
 package persistence;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 
 import model.Academy;
@@ -16,6 +17,8 @@ public interface AcademyDAO {
 	Academy findById(Connection connection, int id) throws DAOException;
 	
 	List<Academy> findByNome(Connection connection, String nome) throws DAOException;
+	
+	List<Academy> findByNomeEDate(Connection connection, String nome, Date dataInizio, Date dataFine) throws DAOException;
 
 	List<Academy> findAll(Connection connection) throws DAOException;
 	
