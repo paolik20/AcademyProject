@@ -1,6 +1,7 @@
 package service.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 
 import model.Academy;
@@ -18,110 +19,129 @@ public class AcademyServiceImpl implements AcademyService {
 	
 	@Override
 	public void save(Academy academy) throws ServiceException {
-		Connection c = null;
+		Connection connection = null;
 		try {
-			c = DataSource.getInstance().getConnection();
-			DBUtil.setAutoCommit(c, false);
-			academyDAO.save(c, academy);
-			DBUtil.commit(c);
-		} catch (DAOException e1) {
-			System.err.println(e1.getMessage());
-			DBUtil.rollback(c);
-			throw new ServiceException(e1.getMessage(), e1);
+			connection = DataSource.getInstance().getConnection();
+			DBUtil.setAutoCommit(connection, false);
+			academyDAO.save(connection, academy);
+			DBUtil.commit(connection);
+		} catch (DAOException e) {
+			System.err.println(e.getMessage());
+			DBUtil.rollback(connection);
+			throw new ServiceException(e.getMessage(), e);
 		} finally {
-			DBUtil.close(c);
+			DBUtil.close(connection);
 		}
 	}
 
 	@Override
 	public void update(Academy academy) throws ServiceException {
-		Connection c = null;
+		Connection connection = null;
 		try {
-			c = DataSource.getInstance().getConnection();
-			DBUtil.setAutoCommit(c, false);
-			academyDAO.update(c, academy);
-			DBUtil.commit(c);
+			connection = DataSource.getInstance().getConnection();
+			DBUtil.setAutoCommit(connection, false);
+			academyDAO.update(connection, academy);
+			DBUtil.commit(connection);
 		} catch (DAOException e) {
 			System.err.println(e.getMessage());
-			DBUtil.rollback(c);
+			DBUtil.rollback(connection);
 			throw new ServiceException(e.getMessage(), e);
 		} finally {
-			DBUtil.close(c);
+			DBUtil.close(connection);
 		}
 	}
 
 	@Override
 	public void delete(Academy academy) throws ServiceException {
-		Connection c = null;
+		Connection connection = null;
 		try {
-			c = DataSource.getInstance().getConnection();
-			DBUtil.setAutoCommit(c, false);
-			academyDAO.delete(c, academy);
-			DBUtil.commit(c);
+			connection = DataSource.getInstance().getConnection();
+			DBUtil.setAutoCommit(connection, false);
+			academyDAO.delete(connection, academy);
+			DBUtil.commit(connection);
 		} catch (DAOException e) {
 			System.err.println(e.getMessage());
-			DBUtil.rollback(c);
+			DBUtil.rollback(connection);
 			throw new ServiceException(e.getMessage(), e);
 		} finally {
-			DBUtil.close(c);
+			DBUtil.close(connection);
 		}
 	}
 
 	@Override
 	public Academy findById(int id) throws ServiceException {
-		Connection c = null;
+		Connection connection = null;
 		Academy academy = null;
 		try {
-			c = DataSource.getInstance().getConnection();
-			DBUtil.setAutoCommit(c, false);
-			academy = academyDAO.findById(c, id);
-			DBUtil.commit(c);
+			connection = DataSource.getInstance().getConnection();
+			DBUtil.setAutoCommit(connection, false);
+			academy = academyDAO.findById(connection, id);
+			DBUtil.commit(connection);
 		} catch (DAOException e) {
 			System.err.println(e.getMessage());
-			DBUtil.rollback(c);
+			DBUtil.rollback(connection);
 			throw new ServiceException(e.getMessage(), e);
 		} finally {
-			DBUtil.close(c);
+			DBUtil.close(connection);
 		}	
 		return academy;
 	}
 
 	@Override
 	public List<Academy> findByNome(String nome) throws ServiceException {
-		Connection c = null;
+		Connection connection = null;
 		List<Academy> academies = null;
 		try {
-			c = DataSource.getInstance().getConnection();
-			DBUtil.setAutoCommit(c, false);
-			academies = academyDAO.findByNome(c, nome);
-			DBUtil.commit(c);
+			connection = DataSource.getInstance().getConnection();
+			DBUtil.setAutoCommit(connection, false);
+			academies = academyDAO.findByNome(connection, nome);
+			DBUtil.commit(connection);
 		} catch (DAOException e) {
 			System.err.println(e.getMessage());
-			DBUtil.rollback(c);
+			DBUtil.rollback(connection);
 			throw new ServiceException(e.getMessage(), e);
 		} finally {
-			DBUtil.close(c);
+			DBUtil.close(connection);
 		}	
 		return academies;
 	}
 
 	@Override
 	public List<Academy> findAll() throws ServiceException {
-		Connection c = null;
+		Connection connection = null;
 		List<Academy> academy = null;
 		try {
-			c = DataSource.getInstance().getConnection();
-			DBUtil.setAutoCommit(c, false);
-			academy = academyDAO.findAll(c);
-			DBUtil.commit(c);
+			connection = DataSource.getInstance().getConnection();
+			DBUtil.setAutoCommit(connection, false);
+			academy = academyDAO.findAll(connection);
+			DBUtil.commit(connection);
 		} catch (DAOException e) {
 			System.err.println(e.getMessage());
-			DBUtil.rollback(c);
+			DBUtil.rollback(connection);
 			throw new ServiceException(e.getMessage(), e);
 		} finally {
-			DBUtil.close(c);
+			DBUtil.close(connection);
 		}	
 		return academy;
+	}
+
+	@Override
+	public List<Academy> findByNomeEDate(String nome, Date dataInizio, Date dataFine) throws ServiceException {
+		Connection connection = null;
+		List<Academy> academies = null;
+		try {
+			connection = DataSource.getInstance().getConnection();
+			DBUtil.setAutoCommit(connection, false);
+			academies = academyDAO.findByNomeEDate(connection, nome, dataInizio, dataFine);
+			DBUtil.commit(connection);
+		} catch (DAOException e) {
+			System.err.println(e.getMessage());
+			DBUtil.rollback(connection);
+			throw new ServiceException(e.getMessage(), e);
+		} finally {
+			DBUtil.close(connection);
+		}	
+		return academies;
 	}
 
 }

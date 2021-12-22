@@ -117,6 +117,7 @@ public class AcademyDAOImpl implements AcademyDAO {
 	    Academy academy = null;
 		try {
 	    	statement = connection.prepareStatement(sql);
+	    	statement.setString(1, nome);
 			resultSet = statement.executeQuery();
 			while(resultSet.next()) {
 				int id = resultSet.getInt(1);
@@ -165,14 +166,78 @@ public class AcademyDAOImpl implements AcademyDAO {
 	@Override
 	public List<Academy> findByNomeEDate(Connection connection, String nome, Date dataInizio,
 			Date dataFine) throws DAOException {
+		String sql = "SELECT * FROM academy WHERE ";
+		List<Academy> academies = new ArrayList<Academy>();
 		
+		// da controllare gli apici
+		boolean nomeBoolean = false;
+		if(nome != null) {
+			sql += "nome LIKE = '%'?'%' AND";
+			nomeBoolean = true;
+		}
 		
+		boolean dataInizioBoolean = false;
+		if(dataInizio != null) {
+			sql += "MONTH(data_inizio) = MONTH(?) AND YEAR(data_inizio) = YEAR(?) AND";
+			dataInizioBoolean = true;
+		}
 		
+		boolean dataFineBoolean = false;
+		if(dataFine != null) {
+			sql += "MONTH(data_fine) = MONTH(?) AND YEAR(data_inizio) = YEAR(?) AND";
+			dataFineBoolean = true;
+		}
 		
+		if (!(nomeBoolean || dataFineBoolean || dataInizioBoolean)) {
+			sql = sql.substring(0, sql.length()-7);
+		}
 		
+		if(sql.endsWith("AND")) {
+			sql = sql.substring(0, sql.length()-4);
+		}
+		System.out.println(sql);
 		
-		
-		return null;
+		PreparedStatement statement = null;
+	    ResultSet resultSet = null;
+		try {
+	    	statement = connection.prepareStatement(sql);
+	    	
+	    	if(nomeBoolean) {
+	    		statement.setString(1, nome);
+	    	}
+	    	
+	    	if(dataInizioBoolean) {
+	    		if(nomeBoolean) {
+	    			statement.setDate(2, dataInizio);
+	    		} else statement.setDate(1, dataInizio);
+	    	}
+	    	
+	    	if(dataFineBoolean) {
+		    	if(dataInizioBoolean) {
+		    		if(nomeBoolean) {
+		    			statement.setDate(3, dataFine);
+		    		} else statement.setDate(2, dataFine);
+		    	} else statement.setDate(1, dataFine);
+	    	}
+			System.out.println(sql);
+
+			resultSet = statement.executeQuery();
+			while(resultSet.next()) {
+				int id = resultSet.getInt(1);
+				String nomeAcademy = resultSet.getString(2);
+				Date dataInizioAcademy = resultSet.getDate(3);
+				Date dataFineAcademy = resultSet.getDate(4);
+				Academy academy = new Academy(id, nomeAcademy, dataInizioAcademy, dataFineAcademy);
+				academies.add(academy);
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOException("errore nell'accesso ai dati", e);
+		} finally {  
+			DBUtil.close(resultSet);
+			DBUtil.close(statement);
+		}
+		return academies;
 	}
 
 }
