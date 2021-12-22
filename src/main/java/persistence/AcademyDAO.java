@@ -22,4 +22,6 @@ public interface AcademyDAO {
 
 	List<Academy> findAll(Connection connection) throws DAOException;
 	
+	List<Academy> findByModulo(Connection connection, String modulo) throws DAOException;
+	
 }

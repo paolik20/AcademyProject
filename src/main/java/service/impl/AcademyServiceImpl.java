@@ -144,4 +144,23 @@ public class AcademyServiceImpl implements AcademyService {
 		return academies;
 	}
 
+	@Override
+	public List<Academy> findByModulo(String modulo) throws ServiceException {
+		Connection connection = null;
+		List<Academy> academies = null;
+		try {
+			connection = DataSource.getInstance().getConnection();
+			DBUtil.setAutoCommit(connection, false);
+			academies = academyDAO.findByModulo(connection, modulo);
+			DBUtil.commit(connection);
+		} catch (DAOException e) {
+			System.err.println(e.getMessage());
+			DBUtil.rollback(connection);
+			throw new ServiceException(e.getMessage(), e);
+		} finally {
+			DBUtil.close(connection);
+		}	
+		return academies;
+	}
+
 }

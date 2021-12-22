@@ -15,17 +15,19 @@ import persistence.DBUtil;
 
 public class AcademyDAOImpl implements AcademyDAO {
 
+	// aggiungere le info nei metodi 
 	@Override
 	public void save(Connection connection, Academy academy) throws DAOException {
-		String sql = "INSERT INTO academy(nome, data_inizio, data_fine) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO academy(nome, info, data_inizio, data_fine) VALUES (?, ?, ?, ?)";
 		System.out.println(sql);
 		PreparedStatement statement = null;
 		ResultSet generatedKeys = null;
 		try {
 			statement = connection.prepareStatement(sql, new String[] { "id" });
 			statement.setString(1, academy.getNome());
-			statement.setDate(2, academy.getDataInizio());
-			statement.setDate(3, academy.getDataFine());
+			statement.setString(2, academy.getNome());
+			statement.setDate(3, academy.getDataInizio());
+			statement.setDate(4, academy.getDataFine());
 			
 			statement.executeUpdate();
 			generatedKeys = statement.getGeneratedKeys();
@@ -228,6 +230,35 @@ public class AcademyDAOImpl implements AcademyDAO {
 				Date dataInizioAcademy = resultSet.getDate(3);
 				Date dataFineAcademy = resultSet.getDate(4);
 				Academy academy = new Academy(id, nomeAcademy, dataInizioAcademy, dataFineAcademy);
+				academies.add(academy);
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOException("errore nell'accesso ai dati", e);
+		} finally {  
+			DBUtil.close(resultSet);
+			DBUtil.close(statement);
+		}
+		return academies;
+	}
+
+	@Override
+	public List<Academy> findByModulo(Connection connection, String modulo) throws DAOException {
+		String sql = "SELECT academy.id, academy.nome, academy.data_inizio, academy.data_fine FROM academy INNER JOIN modulo ON modulo.academy_id = academy.id WHERE modulo.nome=?";
+		List<Academy> academies = new ArrayList<Academy>();
+	    PreparedStatement statement = null;
+	    ResultSet resultSet = null;
+	    Academy academy = null;
+		try {
+	    	statement = connection.prepareStatement(sql);
+	    	statement.setString(1, modulo);
+			resultSet = statement.executeQuery();
+			while(resultSet.next()) {
+				int id = resultSet.getInt(1);
+				String nome = resultSet.getString(2);
+				Date dataInizio = resultSet.getDate(3);
+				Date dataFine = resultSet.getDate(4);
+				academy = new Academy(id, nome, dataInizio, dataFine);
 				academies.add(academy);
 			}
 		} catch (SQLException e) {
