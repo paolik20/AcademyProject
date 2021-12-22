@@ -38,7 +38,7 @@ public class findAllAcademiesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			HttpSession session = request.getSession();
-			// session.getAttribute("usernameAdmin");
+			//  session.getAttribute("usernameAdmin");
 			
 			List<Academy> academies = academyService.findAll();
 			request.setAttribute("academies", academies);
