@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 /org.eclipse.wst.jsdt.ui.superType.name
 /org.eclipse.wst.common.component
 /org.eclipse.jdt.core.prefs
 /org.eclipse.wst.common.project.facet.core.xml
 /org.eclipse.wst.jsdt.ui.superType.container
+=======
+/.jsdtscope
+/org.eclipse.jdt.core.prefs
+/org.eclipse.wst.common.component
+/org.eclipse.wst.common.project.facet.core.xml
+/org.eclipse.wst.jsdt.ui.superType.container
+/org.eclipse.wst.jsdt.ui.superType.name
+>>>>>>> branch 'master' of https://github.com/paolik20/AcademyProject.git

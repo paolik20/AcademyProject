@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,9 +15,14 @@ import service.ServiceException;
 import service.impl.AdminServiceImpl;
 =======
 >>>>>>> branch 'master' of https://github.com/paolik20/AcademyProject.git
+=======
+>>>>>>> branch 'master' of https://github.com/paolik20/AcademyProject.git
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/paolik20/AcademyProject.git
 =======
 >>>>>>> branch 'master' of https://github.com/paolik20/AcademyProject.git
 import javax.servlet.ServletException;
@@ -25,7 +31,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
+=======
+
+//import java.io.IOException;
+//import jakarta.servlet.ServletException;
+//import jakarta.servlet.annotation.WebServlet;
+//import jakarta.servlet.http.HttpServlet;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+
+import model.Admin;
+import service.AdminService;
+import service.ServiceException;
+import service.impl.AdminServiceImpl;
+
+>>>>>>> branch 'master' of https://github.com/paolik20/AcademyProject.git
 =======
 
 //import java.io.IOException;

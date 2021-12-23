@@ -21,4 +21,6 @@ public interface AcademyService {
 
 	List<Academy> findAll() throws ServiceException;
 	
+	List<Academy> findByModulo(String modulo) throws ServiceException;
+	
 }
