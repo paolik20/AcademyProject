@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
 /*
 import jakarta.servlet.ServletException;
@@ -16,6 +17,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;*/
+=======
+
+//import jakarta.servlet.ServletException;
+//import jakarta.servlet.annotation.WebServlet;
+//import jakarta.servlet.http.HttpServlet;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+//import jakarta.servlet.http.HttpSession;
+
+>>>>>>> branch 'master' of https://github.com/paolik20/AcademyProject.git
 import model.Academy;
 import service.AcademyService;
 import service.ServiceException;
@@ -43,8 +54,8 @@ public class findAllAcademiesServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			HttpSession session = request.getSession();
-			// session.getAttribute("usernameAdmin");
+//			HttpSession session = request.getSession();
+			//  session.getAttribute("usernameAdmin");
 			
 			List<Academy> academies = academyService.findAll();
 			request.setAttribute("academies", academies);
